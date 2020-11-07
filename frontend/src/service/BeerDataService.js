@@ -7,5 +7,9 @@ class BeerDataService{
     retrieveAllBeers(){
         return axios.get(`${BEERS_API_URL}`);
     }
+    deleteBeer(id){
+        console.log('executed Delete service')
+        return axios.delete(`${BEERS_API_URL}/${id}`);
+    }
 }
 export default new BeerDataService()

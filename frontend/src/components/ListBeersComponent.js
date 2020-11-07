@@ -9,6 +9,7 @@ class ListBeersComponent extends Component {
             message:null
         }
        this.refreshBeers() == this.refreshBeers.bind(this);
+      this.deleteBeerClicked() == this.deleteBeerClicked.bind(this)
     }
 
     componentDidMount() {
@@ -25,10 +26,21 @@ class ListBeersComponent extends Component {
             )
     }
 
+    deleteBeerClicked(id) {
+        BeerDataService.deleteBeer(id)
+            .then(
+                response => {
+                    this.setState({ message: `Delete of Beer ${id} Successful` })
+                    this.refreshBeers()
+                }
+            )
+    }
+
     render() {
         return (
             <div className="container">
                 <h3>All Courses</h3>
+                {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
@@ -50,6 +62,7 @@ class ListBeersComponent extends Component {
                                         <td>{beer.beer_description}</td>
                                         <td>{beer.brewery_location}</td>
                                         <td>{beer.alcohol_percentage}</td>
+                                        <td><button className="btn btn-warning" onClick={() => this.deleteBeerClicked(beer.beer_id)}>Delete</button></td>
                                     </tr>
                             )
                         }
