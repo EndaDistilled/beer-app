@@ -76,10 +76,12 @@ class ListBeersComponent extends Component {
                                         <td><button className="btn btn-warning" onClick={() => this.deleteBeerClicked(beer.beer_id)}>Delete</button></td>
                                         <td><button className="btn btn-success" onClick={() => this.updateBeerClicked(beer.beer_id)}>Update</button></td>
                                     </tr>
+
                             )
                         }
                         </tbody>
                     </table>
+                    <button className="btn btn-success" onClick={this.addBeerClicked}>Add</button>
                 </div>
             </div>
         )
