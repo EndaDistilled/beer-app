@@ -13,7 +13,7 @@ public class Beer {
 private Long beer_id;
 private String beer_name;
 private String brewery_location;
-private String beer_description;
+private String description;
 private float alcohol_percentage;
 
 public Beer(){
@@ -43,12 +43,12 @@ public Beer(){
         this.brewery_location = brewery_location;
     }
 
-    public String getBeer_description() {
-        return beer_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBeer_description(String beer_description) {
-        this.beer_description = beer_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public float getAlcohol_percentage() {
