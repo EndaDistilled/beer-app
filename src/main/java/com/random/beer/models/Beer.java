@@ -1,61 +1,36 @@
 package com.random.beer.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "beers")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "beers")
 public class Beer {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long beer_id;
-private String beer_name;
-private String brewery_location;
-private String description;
-private float alcohol_percentage;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator")
+    @SequenceGenerator(name = "generator", sequenceName = "beer_seq", allocationSize = 1)
+    @Column(name = "beer_id", nullable = false, updatable = false)
+    private Long beer_id;
 
-public Beer(){
+    @Column()
+    private String beer_name;
 
-    }
-    public Long getBeer_id() {
-        return beer_id;
-    }
+    @Column()
+    private String brewery_location;
 
-    public void setBeer_id(Long beer_id) {
-        this.beer_id = beer_id;
-    }
+    @Column
+    private String beer_description;
 
-    public String getBeer_name() {
-        return beer_name;
-    }
-
-    public void setBeer_name(String beer_name) {
-        this.beer_name = beer_name;
-    }
-
-    public String getBrewery_location() {
-        return brewery_location;
-    }
-
-    public void setBrewery_location(String brewery_location) {
-        this.brewery_location = brewery_location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public float getAlcohol_percentage() {
-        return alcohol_percentage;
-    }
-
-    public void setAlcohol_percentage(float alcohol_percentage) {
-        this.alcohol_percentage = alcohol_percentage;
-    }
+    @Column()
+    private String alcohol_percentage;
 }
