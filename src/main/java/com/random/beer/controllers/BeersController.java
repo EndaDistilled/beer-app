@@ -24,7 +24,7 @@ public class BeersController {
 
 
     @GetMapping
-    @RequestMapping("{id}")
+    @RequestMapping("/{id}")
     public Beer get(@PathVariable Long id){
         return beerRepository.getOne(id);
     }

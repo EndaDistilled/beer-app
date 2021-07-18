@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "beers")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
