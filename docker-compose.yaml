@@ -1,34 +1,38 @@
-version: '3.1'
+version: '3.7'
 services:
-  postgres:
-    image: postgres:11
-    restart: always
-    ports:
-    - 5432:5432
-    environment:
-      POSTGRES_DB: beer_app
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Welcome
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
-      # copy the sql script to create tables
-      - ./src/main/resources/db/migration/V1_1__Create_beer_table.sql:/docker-entrypoint-initdb.d/V1_1__Create_beer_table.sql
-  backend:
-    build: ./
-    ports:
-      - 8080:8080
-    depends_on:
-      - postgres
-  frontend:
-    build: ./frontend
-    volumes:
-      - './:/app'
-      - '/app/node_modules'
-    command: yarn start
-    ports:
-      - 3000:3000
-      stdin_open: true
-      environment:
+    postgres:
+        image: postgres:11
+        restart: always
+        ports:
+        - 5432:5432
+        environment:
+            POSTGRES_DB: beer_app
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: Welcome
+        volumes:
+        - ./postgres-data:/var/lib/postgresql/data
+        # copy the sql script to create tables
+        - ./src/main/resources/db/migration/V1_1__Create_beer_table.sql:/docker-entrypoint-initdb.d/V1_1__Create_beer_table.sql
+    backend:
+        build: .
+        ports:
+        - 8080:8080
+        depends_on:
+        - postgres
+        environment:
+            POSTGRES_DB: beer_app
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: Welcome
+    frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+        - ./:/frontend
+        - /frontend/node_modules
+        ports:
+        - 3000:3000
+        environment:
         - CHOKIDAR_USEPOLLING=true
-      depends_on:
+        depends_on:
         - backend
